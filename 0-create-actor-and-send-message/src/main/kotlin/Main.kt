@@ -6,9 +6,9 @@ import org.apache.pekko.actor.typed.javadsl.Behaviors
 import org.apache.pekko.actor.typed.javadsl.Receive
 
 fun main(args: Array<String>) {
-
-    val system = ActorSystem.create(PrintActor.create(), "PrintActor")
-    system.tell(PrintActor.StartPrintCommand("Hello, World!"))
+    ActorSystem.create(PrintActor.create(), "PrintActor_0").tell(PrintActor.StartPrintCommand("Hello, World!"))
+    ActorSystem.create(PrintActor.create(), "PrintActor_1").tell(PrintActor.StartPrintCommand("Hello, Kotlin!"))
+    ActorSystem.create(PrintActor.create(), "PrintActor_2").tell(PrintActor.StartPrintCommand("Hello, Actor!"))
 }
 
 class PrintActor private constructor(context: ActorContext<Event>) :
