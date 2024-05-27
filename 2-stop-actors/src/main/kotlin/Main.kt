@@ -6,8 +6,6 @@ import org.apache.pekko.actor.typed.javadsl.ActorContext
 import org.apache.pekko.actor.typed.javadsl.Behaviors
 import org.apache.pekko.actor.typed.javadsl.Receive
 
-private val log = mu.KotlinLogging.logger { }
-
 fun main(args: Array<String>) {
     ActorSystem.create(SelfStoppingActor.create(), "SelfStoppingActor_0").let { system ->
         system.tell(SelfStoppingActor.CreateChildEvent())
@@ -53,12 +51,12 @@ class SelfStoppingActor private constructor(context: ActorContext<Event>) :
     }
 
     private fun onStopEvent(): Behavior<Event> {
-        log.info("Stopping SelfStoppingActor")
+        context.log.info("Stopping SelfStoppingActor")
         return Behaviors.stopped()
     }
 
     private fun onPostStop(): Behavior<Event> {
-        log.info("SelfStoppingActor stopped")
+        context.log.info("SelfStoppingActor stopped")
         return this
     }
 }
@@ -82,7 +80,7 @@ class PassivelyStoppedActor private constructor(context: ActorContext<Event>) :
     }
 
     private fun onPostStop(): Behavior<Event> {
-        log.info("PassivelyStoppedActor stopped")
+        context.log.info("PassivelyStoppedActor stopped")
         return this
     }
 }

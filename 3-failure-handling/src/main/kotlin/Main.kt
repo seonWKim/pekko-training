@@ -5,7 +5,6 @@ import org.apache.pekko.actor.typed.javadsl.Behaviors
 import org.apache.pekko.actor.typed.javadsl.Receive
 import java.time.Duration
 
-private val log = mu.KotlinLogging.logger { }
 
 fun main(args: Array<String>) {
     val system = ActorSystem.create(SupervisingActor.create(), "supervisingActor")
@@ -100,23 +99,23 @@ class ChildActor private constructor(context: ActorContext<Event>) :
     }
 
     private fun onPreRestart(): Behavior<Event> {
-        log.info("ChildActor will be restarted")
+        context.log.info("ChildActor will be restarted")
         return this
     }
 
     private fun onPostStop(): Behavior<Event> {
-        log.info("ChildActor onPostStop")
+        context.log.info("ChildActor onPostStop")
         return this
     }
 
     private fun onFail(): Behavior<Event> {
-        log.info { "ChildActor failed" }
+        context.log.info("ChildActor failed")
         throw RuntimeException("ChildActor failed")
     }
 
     private fun onIncrease(): Behavior<Event> {
         counter++
-        log.info { "ChildActor counter: $counter" }
+        context.log.info("ChildActor counter: $counter")
         return this
     }
 }

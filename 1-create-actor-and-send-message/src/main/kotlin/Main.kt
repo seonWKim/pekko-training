@@ -1,4 +1,3 @@
-import mu.KotlinLogging
 import org.apache.pekko.actor.typed.ActorSystem
 import org.apache.pekko.actor.typed.Behavior
 import org.apache.pekko.actor.typed.javadsl.AbstractBehavior
@@ -6,7 +5,6 @@ import org.apache.pekko.actor.typed.javadsl.ActorContext
 import org.apache.pekko.actor.typed.javadsl.Behaviors
 import org.apache.pekko.actor.typed.javadsl.Receive
 
-private val log = KotlinLogging.logger { }
 fun main(args: Array<String>) {
     ActorSystem.create(PrintActor.create(), "PrintActor_0").tell(PrintActor.StartPrintCommand("Hello, World!"))
     ActorSystem.create(PrintActor.create(), "PrintActor_1").tell(PrintActor.StartPrintCommand("Hello, Kotlin!"))
@@ -33,7 +31,7 @@ class PrintActor private constructor(context: ActorContext<Event>) :
     }
 
     private fun onStartPrintCommand(event: StartPrintCommand): Behavior<Event> {
-        log.info("[${context.self}] ${event.text}")
+        context.log.info("[${context.self}] ${event.text}")
         return this
     }
 }

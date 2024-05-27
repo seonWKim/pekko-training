@@ -16,8 +16,6 @@ def versions = [
 dependencies {
     implementation platform("org.apache.pekko:pekko-bom_${versions.ScalaBinary}:1.0.2")
     implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation("io.github.microutils:kotlin-logging:2.0.11")
-
     implementation "org.apache.pekko:pekko-actor-typed_${versions.ScalaBinary}"
 
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
