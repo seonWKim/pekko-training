@@ -76,6 +76,7 @@ class PassivelyStoppedActor private constructor(context: ActorContext<Event>) :
 
     override fun createReceive(): Receive<Event> {
         return newReceiveBuilder()
+            // No messages are processed after PostStop signal 
             .onSignal(PostStop::class.java) { onPostStop() }
             .build()
     }
