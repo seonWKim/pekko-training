@@ -1,0 +1,14 @@
+dependencies {
+    implementation platform("org.apache.pekko:pekko-bom_${project.versions.ScalaBinary}")
+    implementation 'ch.qos.logback:logback-classic'
+    implementation "org.apache.pekko:pekko-actor-typed_${project.versions.ScalaBinary}"
+
+    implementation "org.apache.pekko:pekko-cluster-typed_${project.versions.ScalaBinary}"
+    implementation "org.apache.pekko:pekko-serialization-jackson_${project.versions.ScalaBinary}"
+    implementation "org.apache.pekko:pekko-cluster-sharding-typed_${project.versions.ScalaBinary}"
+    implementation "org.apache.pekko:pekko-discovery_${project.versions.ScalaBinary}"
+    implementation "org.apache.pekko:pekko-management_${project.versions.ScalaBinary}"
+    implementation "org.apache.pekko:pekko-management-cluster-http_${project.versions.ScalaBinary}"
+
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}
