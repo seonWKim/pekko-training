@@ -1,8 +1,6 @@
-def versions = [ScalaBinary: "2.13"]
-
 dependencies {
-    implementation platform("org.apache.pekko:pekko-bom_${versions.ScalaBinary}:1.0.2")
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation "org.apache.pekko:pekko-actor-typed_${versions.ScalaBinary}"
+    implementation platform("org.apache.pekko:pekko-bom_${project.versions.ScalaBinary}")
+    implementation 'ch.qos.logback:logback-classic'
+    implementation "org.apache.pekko:pekko-actor-typed_${project.versions.ScalaBinary}"
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }

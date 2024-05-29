@@ -10,11 +10,14 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    versions = [ScalaBinary: "2.13"]
+}
+
+
 subprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'application'
-
-    def versions = [ScalaBinary: "2.13"]
 
     repositories {
         mavenCentral()
