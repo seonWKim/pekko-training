@@ -6,17 +6,20 @@ plugins {
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
-allprojects {
-    repositories {
-        mavenCentral()
-    }
+repositories {
+    mavenCentral()
 }
 
 subprojects {
-    def versions = [
-            ScalaBinary: "2.13"
-    ]
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'application'
 
+    def versions = [ScalaBinary: "2.13"]
+
+    repositories {
+        mavenCentral()
+    }
+    
     dependencies {
         implementation platform("org.apache.pekko:pekko-bom_${versions.ScalaBinary}:1.0.2")
         implementation 'ch.qos.logback:logback-classic:1.2.3'

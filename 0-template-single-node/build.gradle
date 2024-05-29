@@ -1,35 +1,8 @@
-plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
-    id 'application'
-}
-
-group = 'org.example'
-version = '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
-def versions = [
-        ScalaBinary: "2.13"
-]
+def versions = [ScalaBinary: "2.13"]
 
 dependencies {
     implementation platform("org.apache.pekko:pekko-bom_${versions.ScalaBinary}:1.0.2")
     implementation 'ch.qos.logback:logback-classic:1.2.3'
-
     implementation "org.apache.pekko:pekko-actor-typed_${versions.ScalaBinary}"
-
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-kotlin {
-    jvmToolchain(8)
-}
-
-application {
-    mainClassName = 'MainKt'
 }
