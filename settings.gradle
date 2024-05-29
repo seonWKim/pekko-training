@@ -1,6 +1,7 @@
 rootProject.name = 'pekko-training'
 
 // Path: build.gradle
+include '0-template-cluster'
 include '0-template-single-node'
 include '1-create-actor-and-send-message'
 include '2-stop-actors'
@@ -8,3 +9,4 @@ include '3-failure-handling'
 include '4-request-response-pattern'
 include '5-terminate-actor-system'
 include '6-exception-handling-strategy'
+//include '7-cluster-singleton'
