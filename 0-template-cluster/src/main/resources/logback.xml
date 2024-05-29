@@ -4,7 +4,7 @@
         logging config, see the Apache Pekko docs: https://pekko.apache.org/docs/pekko/current/typed/logging.html#logback -->
     <appender name="STDOUT" target="System.out" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%highlight([%date{ISO8601}] [%level]) [%logger] [%marker] [%thread] - %msg%n</pattern>
+            <pattern>%highlight([%date{ISO8601}] [%level]) [%logger] [%thread] - %msg%n</pattern>
         </encoder>
     </appender>
 

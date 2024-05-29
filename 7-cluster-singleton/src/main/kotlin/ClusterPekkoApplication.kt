@@ -2,7 +2,10 @@ import com.typesafe.config.ConfigFactory
 import org.apache.pekko.actor.typed.ActorSystem
 import org.apache.pekko.actor.typed.Behavior
 import org.apache.pekko.actor.typed.javadsl.Behaviors
+import org.apache.pekko.cluster.typed.ClusterSingleton
+import org.apache.pekko.cluster.typed.SingletonActor
 import org.apache.pekko.management.javadsl.PekkoManagement
+import java.time.Duration
 
 class ClusterPekkoApplication {
     companion object {
@@ -35,6 +38,15 @@ class ClusterPekkoApplication {
             val system = ActorSystem.create(initialize(), "ClusterPekkoApplication", config)
 
             val singleton = ClusterSingleton.get(system)
+            val singletonGlobalScheduler =
+                singleton.init(SingletonActor.of(GlobalScheduler.create(), "GlobalScheduler"))
+            singletonGlobalScheduler.tell(
+                GlobalScheduler.Schedule(
+                    text = "Hello, world!",
+                    delay = Duration.ofSeconds(3)
+                )
+            )
+
 
             // Enable management
             // Endpoints: https://pekko.apache.org/docs/pekko-management/current/cluster-http-management.html
