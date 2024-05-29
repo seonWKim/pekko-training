@@ -34,6 +34,8 @@ class ClusterPekkoApplication {
             // The name of the ActorSystem should match the value defined in "pekko.cluster.seed-nodes"
             val system = ActorSystem.create(initialize(), "ClusterPekkoApplication", config)
 
+            val singleton = ClusterSingleton.get(system)
+
             // Enable management
             // Endpoints: https://pekko.apache.org/docs/pekko-management/current/cluster-http-management.html
             PekkoManagement.get(system).start()
