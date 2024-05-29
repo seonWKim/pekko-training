@@ -12,6 +12,8 @@ repositories {
 
 ext {
     versions = [ScalaBinary: "2.13"]
+    pekkoVersion = "1.0.2"
+    pekkoManagementVersion = "1.0.0"
 }
 
 
@@ -22,11 +24,22 @@ subprojects {
     repositories {
         mavenCentral()
     }
-    
+
     dependencies {
         implementation platform("org.apache.pekko:pekko-bom_${versions.ScalaBinary}:1.0.2")
-        implementation 'ch.qos.logback:logback-classic:1.2.3'
-        implementation "org.apache.pekko:pekko-actor-typed_${versions.ScalaBinary}"
+        implementation "ch.qos.logback:logback-classic:1.4.12"
+        implementation "ch.qos.logback:logback-classic:1.2.3"
+        implementation "org.apache.pekko:pekko-actor-typed_${versions.ScalaBinary}:$pekkoVersion"
+
+        // for cluster
+        implementation "org.apache.pekko:pekko-cluster-typed_${versions.ScalaBinary}:$pekkoVersion"
+        implementation "org.apache.pekko:pekko-serialization-jackson_${versions.ScalaBinary}:$pekkoVersion"
+        implementation "org.apache.pekko:pekko-cluster-sharding-typed_${versions.ScalaBinary}:$pekkoVersion"
+        implementation "org.apache.pekko:pekko-discovery_${versions.ScalaBinary}:$pekkoVersion"
+        implementation "org.apache.pekko:pekko-management_${versions.ScalaBinary}:$pekkoManagementVersion"
+        implementation "org.apache.pekko:pekko-management-cluster-http_${versions.ScalaBinary}:$pekkoManagementVersion"
+
+        testImplementation("org.apache.pekko:pekko-actor-testkit-typed_${versions.ScalaBinary}:$pekkoVersion")
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
     }
 
@@ -35,7 +48,7 @@ subprojects {
     }
 
     kotlin {
-        jvmToolchain(8)
+        jvmToolchain(17)
     }
 
     application {
