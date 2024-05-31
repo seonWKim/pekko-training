@@ -2,7 +2,8 @@ import com.typesafe.config.ConfigFactory
 import org.apache.pekko.actor.typed.ActorSystem
 import org.apache.pekko.actor.typed.Behavior
 import org.apache.pekko.actor.typed.javadsl.Behaviors
-import org.apache.pekko.cluster.sharding.typed.javadsl.ClusterSharding
+import org.apache.pekko.cluster.typed.ClusterSingleton
+import org.apache.pekko.cluster.typed.SingletonActor
 import org.apache.pekko.management.javadsl.PekkoManagement
 
 class ClusterPekkoApplication {
@@ -34,7 +35,10 @@ class ClusterPekkoApplication {
 
             // The name of the ActorSystem should match the value defined in "pekko.cluster.seed-nodes"
             val system = ActorSystem.create(initialize(), "ClusterPekkoApplication", config)
-            val sharding = ClusterSharding.get(system)
+            val singleton = ClusterSingleton.get(system)
+            val shardedActorCreator =
+                singleton.init(SingletonActor.of(ShardedActorCreator.create(system), "ShardedActorCreator"))
+            shardedActorCreator.tell(ShardedActorCreator.CreateShardedActor())
 
             // Enable management
             // Endpoints: https://pekko.apache.org/docs/pekko-management/current/cluster-http-management.html
@@ -44,8 +48,10 @@ class ClusterPekkoApplication {
         }
 
         private fun initialize(): Behavior<Void> {
-            return Behaviors.setup {
+            return Behaviors.setup { 
                 it.spawn(ClusterListener.create(), "ClusterListener")
+
+                ShardedActor.initSharding(it.system)
                 Behaviors.empty()
             }
         }
