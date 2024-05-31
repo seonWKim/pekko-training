@@ -6,3 +6,7 @@ dependencies {
     implementation "org.apache.pekko:pekko-stream_${project.versions.ScalaBinary}"
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }
+
+application {
+    mainClass = "HttpServerWebSocketExample"
+}

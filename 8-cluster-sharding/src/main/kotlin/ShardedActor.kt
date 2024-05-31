@@ -14,6 +14,7 @@ class ShardedActor private constructor(context: ActorContext<Event>, val shardKe
 
     class Initialize : Event
     companion object {
+        // visit http://localhost:{managementPort}/cluster/shards/ShardActor to see the shard information 
         val typeKey: EntityTypeKey<Event> = EntityTypeKey.create(Event::class.java, "ShardedActor")
         fun initSharding(system: ActorSystem<*>) {
             ClusterSharding.get(system).init(
@@ -35,10 +36,10 @@ class ShardedActor private constructor(context: ActorContext<Event>, val shardKe
     private var initialized = false
     private fun onInitialize(event: Initialize): Behavior<Event> {
         if (initialized) {
-            context.log.warn("[${context.system.address()}] Sharded actor already initialized with shard key: $shardKey")
+            context.log.info("[${context.system.address()}] Already exists: $shardKey")
         } else {
             initialized = true
-            context.log.info("[${context.system.address()}] Sharded actor initialized with shard key: $shardKey")
+            context.log.info("[${context.system.address()}] Initialized: $shardKey")
         }
         return this
     }
