@@ -32,7 +32,7 @@ class ShardedActor private constructor(context: ActorContext<Event>, val shardKe
             .build()
     }
 
-    var initialized = false
+    private var initialized = false
     private fun onInitialize(event: Initialize): Behavior<Event> {
         if (initialized) {
             context.log.warn("[${context.system.address()}] Sharded actor already initialized with shard key: $shardKey")
