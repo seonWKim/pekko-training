@@ -44,3 +44,4 @@ bin/
 .DS_Store
 
 .idea
+/10-http-server-websocket/websocket-client/node_modules/
