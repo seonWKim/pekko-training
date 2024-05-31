@@ -14,6 +14,7 @@ ext {
     versions = [ScalaBinary: "2.13"]
     pekkoVersion = "1.0.2"
     pekkoManagementVersion = "1.0.0"
+    pekkoHttpVersion = "1.0.1"
 }
 
 
@@ -38,6 +39,12 @@ subprojects {
         implementation "org.apache.pekko:pekko-discovery_${versions.ScalaBinary}:$pekkoVersion"
         implementation "org.apache.pekko:pekko-management_${versions.ScalaBinary}:$pekkoManagementVersion"
         implementation "org.apache.pekko:pekko-management-cluster-http_${versions.ScalaBinary}:$pekkoManagementVersion"
+
+        // for http server
+        implementation "org.apache.pekko:pekko-http_${versions.ScalaBinary}:$pekkoHttpVersion"
+        implementation "org.apache.pekko:pekko-http_${versions.ScalaBinary}:$pekkoHttpVersion"
+        implementation "org.apache.pekko:pekko-http-jackson_${versions.ScalaBinary}:$pekkoHttpVersion"
+        implementation "org.apache.pekko:pekko-http-spray-json_${versions.ScalaBinary}:$pekkoHttpVersion"
 
         testImplementation("org.apache.pekko:pekko-actor-testkit-typed_${versions.ScalaBinary}:$pekkoVersion")
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
