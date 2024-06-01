@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
     ActorSystem.create(PrintActor.create(), "PrintActor_2").tell(PrintActor.StartPrintCommand("Hello, Actor!"))
 }
 
-class PrintActor private constructor(context: ActorContext<Event>) :
+class PrintActor(context: ActorContext<Event>) :
     AbstractBehavior<PrintActor.Event>(context) {
 
     sealed interface Event

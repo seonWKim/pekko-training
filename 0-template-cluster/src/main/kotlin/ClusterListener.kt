@@ -7,7 +7,7 @@ import org.apache.pekko.cluster.ClusterEvent
 import org.apache.pekko.cluster.typed.Cluster
 import org.apache.pekko.cluster.typed.Subscribe
 
-class ClusterListener : AbstractBehavior<ClusterListener.Event> {
+class ClusterListener(context: ActorContext<Event>) : AbstractBehavior<ClusterListener.Event>(context) {
     interface Event {}
 
     data class ReachabilityChange(val reachabilityEvent: ClusterEvent.ReachabilityEvent) : Event
@@ -20,13 +20,11 @@ class ClusterListener : AbstractBehavior<ClusterListener.Event> {
         }
     }
 
-    private constructor(context: ActorContext<Event>) : super(context) {
+    init {
         val cluster = Cluster.get(context.system)
-
         val memberEventAdapter =
             context.messageAdapter(ClusterEvent.MemberEvent::class.java) { MemberChange(it) }
         cluster.subscriptions().tell(Subscribe.create(memberEventAdapter, ClusterEvent.MemberEvent::class.java))
-
         val reachabilityAdaptor =
             context.messageAdapter(ClusterEvent.ReachabilityEvent::class.java) { ReachabilityChange(it) }
         cluster.subscriptions()

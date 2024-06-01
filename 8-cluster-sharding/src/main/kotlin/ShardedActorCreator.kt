@@ -8,7 +8,7 @@ import org.apache.pekko.cluster.sharding.typed.javadsl.ClusterSharding
 import java.time.Duration
 import java.util.*
 
-class ShardedActorCreator private constructor(context: ActorContext<Event>, val sharding: ClusterSharding) :
+class ShardedActorCreator(context: ActorContext<Event>, val sharding: ClusterSharding) :
     AbstractBehavior<ShardedActorCreator.Event>(context) {
     interface Event : CborSerializable
 

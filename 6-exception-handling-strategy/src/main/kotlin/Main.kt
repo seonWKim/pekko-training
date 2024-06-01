@@ -67,7 +67,7 @@ fun resumeStrategy() {
     system.log().info("resumeStrategy ended")
 }
 
-class ConditionallyExceptionThrowingActor private constructor(context: ActorContext<Event>):
+class ConditionallyExceptionThrowingActor(context: ActorContext<Event>):
     AbstractBehavior<ConditionallyExceptionThrowingActor.Event>(context) {
     private var exceptionCount = 0
     private var messagesReceived = 0

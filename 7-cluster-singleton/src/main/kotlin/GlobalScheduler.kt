@@ -5,7 +5,7 @@ import org.apache.pekko.actor.typed.javadsl.Behaviors
 import org.apache.pekko.actor.typed.javadsl.Receive
 import java.time.Duration
 
-class GlobalScheduler private constructor(context: ActorContext<Event>) :
+class GlobalScheduler(context: ActorContext<Event>) :
     AbstractBehavior<GlobalScheduler.Event>(context) {
 
     interface Event : CborSerializable

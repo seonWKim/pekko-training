@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
     }
 }
 
-class ClientActor private constructor(context: ActorContext<Event>) :
+class ClientActor(context: ActorContext<Event>) :
     AbstractBehavior<ClientActor.Event>(context) {
 
     sealed interface Event
@@ -61,7 +61,7 @@ class ClientActor private constructor(context: ActorContext<Event>) :
     }
 }
 
-class ServerActor private constructor(context: ActorContext<Event>) :
+class ServerActor(context: ActorContext<Event>) :
     AbstractBehavior<ServerActor.Event>(context) {
 
     sealed interface Event

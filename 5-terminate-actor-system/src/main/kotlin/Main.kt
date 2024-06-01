@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
     system.terminate()
 }
 
-class FiniteActor private constructor(context: ActorContext<Event>) :
+class FiniteActor(context: ActorContext<Event>) :
     AbstractBehavior<FiniteActor.Event>(context) {
 
     interface Event

@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
     }
 }
 
-class SelfStoppingActor private constructor(context: ActorContext<Event>) :
+class SelfStoppingActor(context: ActorContext<Event>) :
     AbstractBehavior<SelfStoppingActor.Event>(context) {
 
     sealed interface Event
@@ -61,7 +61,7 @@ class SelfStoppingActor private constructor(context: ActorContext<Event>) :
     }
 }
 
-class PassivelyStoppedActor private constructor(context: ActorContext<Event>) :
+class PassivelyStoppedActor(context: ActorContext<Event>) :
     AbstractBehavior<PassivelyStoppedActor.Event>(context) {
 
     sealed interface Event

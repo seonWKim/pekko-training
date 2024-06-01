@@ -8,7 +8,7 @@ import org.apache.pekko.cluster.sharding.typed.javadsl.ClusterSharding
 import org.apache.pekko.cluster.sharding.typed.javadsl.Entity
 import org.apache.pekko.cluster.sharding.typed.javadsl.EntityTypeKey
 
-class ShardedActor private constructor(context: ActorContext<Event>, val shardKey: String) :
+class ShardedActor(context: ActorContext<Event>, val shardKey: String) :
     AbstractBehavior<ShardedActor.Event>(context) {
     interface Event : CborSerializable
 

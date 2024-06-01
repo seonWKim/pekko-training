@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
     system.tell(SupervisingActor.IncreaseChildCounter())
 }
 
-class SupervisingActor private constructor(context: ActorContext<Event>) :
+class SupervisingActor(context: ActorContext<Event>) :
     AbstractBehavior<SupervisingActor.Event>(context) {
 
     sealed interface Event
@@ -72,7 +72,7 @@ class SupervisingActor private constructor(context: ActorContext<Event>) :
     }
 }
 
-class ChildActor private constructor(context: ActorContext<Event>) :
+class ChildActor(context: ActorContext<Event>) :
     AbstractBehavior<ChildActor.Event>(context) {
 
     sealed interface Event
