@@ -8,7 +8,7 @@ const readline = require('readline').createInterface({
 
 readline.on('line', (input) => {
   const command = input.split(' ')[0];
-  const message = input.split(' ').slice(1).join(' ');
+  const args = input.split(' ').slice(1);
 
   switch (command) {
     case 'connect':
@@ -16,17 +16,29 @@ readline.on('line', (input) => {
         console.log('Already connected. Please close the current connection first.');
         return;
       }
-      ws = new WebSocket('ws://localhost:8080/greeter');
+      const port = args[0] || '8080'; // Default to 8080 if no port is provided
+      ws = new WebSocket(`ws://localhost:${port}/greeter`);
       ws.on('open', () => console.log('Connected to the server.'));
       ws.on('message', (data) => console.log(`Received: ${data}`));
-      ws.on('close', () => console.log('Connection closed.'));
-      ws.on('error', (error) => console.log(`Error: ${error.message}`));
+      ws.on('close', () => {
+        console.log('Connection closed.');
+        ws = null;
+      });
+      ws.on('error', (error) => {
+        if (error.code === 'ECONNREFUSED') {
+          console.log(`Failed to connect to port ${port}. Please try again.`);
+          ws = null;
+        } else {
+          console.log(`Error: ${error.message}`);
+        }
+      });
       break;
     case 'send':
       if (ws === null) {
         console.log('Not connected. Please connect first.');
         return;
       }
+      const message = args.join(' ');
       ws.send(message);
       break;
     case 'close':
@@ -35,12 +47,11 @@ readline.on('line', (input) => {
         return;
       }
       ws.close();
-      ws = null;
       break;
     default:
-      console.log('Unknown command. Please use connect, send <message>, or close.');
+      console.log('Unknown command. Please use connect <port>, send <message>, or close.');
       break;
   }
 });
 
-console.log('Please enter a command: connect, send <message>, or close.');
+console.log('Please enter a command: connect <port>, send <message>, or close.');
